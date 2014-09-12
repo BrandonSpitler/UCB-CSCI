@@ -332,7 +332,12 @@ int isLessOrEqual(int x, int y) {
  *   Rating: 3
  */
 int logicalShift(int x, int n) {
-  return 2;
+/* This function masks the value of x arithmetically shifted n
+   to create a logical shift.
+   The final left shift of 1 accounts for the initial 1 used to
+   create the mask.
+   */
+  return (x >> n) & (~( ((0x01 << 31) >> n) << 1 ));
 }
 
 
