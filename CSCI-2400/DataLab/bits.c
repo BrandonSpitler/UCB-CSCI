@@ -335,8 +335,7 @@ int logicalShift(int x, int n) {
 /* This function masks the value of x arithmetically shifted n
    to create a logical shift.
    The final left shift of 1 accounts for the initial 1 used to
-   create the mask.
-   */
+   create the mask. */
   return (x >> n) & (~( ((0x01 << 31) >> n) << 1 ));
 }
 
@@ -372,7 +371,16 @@ int leastBitPos(int x) {
  *   Rating: 4
  */
 int bitParity(int x) {
-  return 2;
+/* An integer split in two and XOR itself will produce a
+   resultant integer with equivalent bit parity. Taking the
+   final 1 bit integer AND 1 ensures it returns 1 for odd number
+   of zeros. */
+  x = ( x >> 0x10 ) ^ x;
+  x = ( x >> 0x08 ) ^ x;
+  x = ( x >> 0x04 ) ^ x;
+  x = ( x >> 0x02 ) ^ x;
+  x = ( x >> 0x01 ) ^ x;
+  return (x & 0x01);
 }
 
 
@@ -388,7 +396,13 @@ int bitParity(int x) {
  *   Rating: 4
  */
 int isPower2(int x) {
-  return 2;
+/* First, check to make sure x is not 0. Then, check to make sure
+   the MSB of x is not 1. If it is 1, x is negative and therefore not
+   a power of two.
+   x + ~0x00 yields only 1 zero if x is a power of 2. This quantity
+   AND x, if x is a power of 2, will produce all zeros. Otherwise it will
+   produce a non-zero quantity. */
+  return !!x & !(x >> 31) & !(x & (x + ~0x00));
 }
 
 
