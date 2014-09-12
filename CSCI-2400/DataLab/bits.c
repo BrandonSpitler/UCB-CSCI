@@ -306,7 +306,16 @@ int addOK(int x, int y) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-  return 2;
+/* The complemented XOR checks if x and y are the same sign.
+   If they are the same sign and y is greater than x, the MSB of
+   ~y + x will be 1.
+   If x and y are the not the same sign then y is only greater
+   than x if y is positive and x is negative.
+   The double bang operator ensures that the greater than equivalence
+   is flipped to less than or equal to.  */
+  int same_sign = ~((x >> 31) ^ (y >> 31)) & ((~y + x) >> 31);
+
+  return !!(same_sign | ((x >> 31) & ~(y >> 31)));
 }
 
 
@@ -393,6 +402,6 @@ int bang(int x) {
    one whether x is positive or negative to start, except in the case
    of 0. Complementing this quantity has the result of making the MSB
    of any non-zero x equal to 0. If x = 0 the MSB will be set to 1. Shifting
-   extracts the MSB. The MSB AND 1 returns 1 for 0, and 0 for any non-zero.*/
+   extracts the MSB. The MSB AND 1 returns 1 for 0, and 0 for any non-zero. */
   return ((~(x | (~x + 0x01))) >> 31) & 0x01;
 }
