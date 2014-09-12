@@ -173,9 +173,11 @@ int minusOne(void) {
  *   Rating: 2
  */
 int evenBits(void) {
+/* 0x55 is binary 01010101. It is shifted a multiple of 8 bits
+   to reach the 32 bit size of the computer. The OR statements work
+   to concatenate of the various bits. */
   return (0x55<<24) | (0x55<<16) | (0x55<<8) | 0x55;
 }
-
 
 
 
@@ -188,7 +190,12 @@ int evenBits(void) {
  *   Rating: 2
  */
 int divpwr2(int x, int n) {
-  return 2;
+/* In order to build 2^n, 1 is left shifted n bits.
+   Next, -1 is added to 2^n. The MSB of x AND this quantity ensures that
+   the modification only occurs to negative numbers. Finally,
+   x plus either 1 or 0 as is appropriate is shifted by n bits to
+   divide. */
+  return (x + (((0x01 << n) + ~0x00) & (x >> 31))) >> n;
 }
 
 
@@ -236,8 +243,10 @@ int negate(int x) {
  *   Rating: 2
  */
 int getByte(int x, int n) {
-/* brief description of how your implementation works */
-  return 2;
+/* Shifting n by 3 is the equivalent of multiplying n by 8.
+   x is then shifted by either 0, 8, 16, or 24 bits and masked
+   with 0xFF to extract the correct byte. */
+  return (x >> (n << 3)) & 0xFF;
 }
 
 
@@ -272,7 +281,16 @@ int isPositive(int x) {
  *   Rating: 3
  */
 int addOK(int x, int y) {
-  return 2;
+/* First, determine if x and y have the same sign. If they don't, xy-match
+   will be a value of 0 and the function will return 1.
+   After determining the sign of the sum of x and y, XOR this quantity
+   with the sign of x (which equals the sign of y in any potential overflow case).
+   If the sign of the sum is different than the sign of x the final AND will evaluate to
+   non-zero which the bang operator will convert to 0. */
+  int xy_match = ~((x >> 31) ^ (y >> 31));
+  int xy_sign = (x + y) >> 31;
+
+  return !(xy_match & ((x >> 31) ^ xy_sign));
 }
 
 
@@ -321,7 +339,12 @@ int logicalShift(int x, int n) {
  *   Rating: 4
  */
 int leastBitPos(int x) {
-  return 2;
+/* First, convert x to its negative counterpart. When
+   this conversion occurs the least significant 1 bit is
+   the only bit in x that will remain the same. By taking the
+   AND of x and -x this least significant 1 is the only thing
+   that will return a 1. */
+  return x & (~x + 1);
 }
 
 
@@ -366,5 +389,10 @@ int isPower2(int x) {
  *   Rating: 4
  */
 int bang(int x) {
-  return 2;
+/* ~x + 1 is equivalent to -x. -x OR x will always produce a leading
+   one whether x is positive or negative to start, except in the case
+   of 0. Complementing this quantity has the result of making the MSB
+   of any non-zero x equal to 0. If x = 0 the MSB will be set to 1. Shifting
+   extracts the MSB. The MSB AND 1 returns 1 for 0, and 0 for any non-zero.*/
+  return ((~(x | (~x + 0x01))) >> 31) & 0x01;
 }
