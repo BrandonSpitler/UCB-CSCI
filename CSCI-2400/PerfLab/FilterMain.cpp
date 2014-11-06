@@ -91,14 +91,15 @@ applyFilter(struct Filter *filter, cs1300bmp *input, cs1300bmp *output)
 {
 
   long long cycStart, cycStop;
-  int width, height, dim;
+  int width, height, dim, divisor;
+  int outputWidth, outputHeight;
 
   cycStart = rdtscll();
   
   width = input -> width;
   height = input -> height;
   dim = filter -> getSize();
-
+  
   output -> width = width;
   output -> height = height;
 
@@ -113,7 +114,7 @@ applyFilter(struct Filter *filter, cs1300bmp *input, cs1300bmp *output)
 	      * filter -> get(i, j);
 	  }
 	}
-	value = value / filter -> getDivisor();
+	value = value / (filter -> getDivisor());
 	if ( value  < 0 ) { value = 0; }
 	if ( value  > 255 ) { value = 255; }
 	output -> color[plane][row][col] = value;
