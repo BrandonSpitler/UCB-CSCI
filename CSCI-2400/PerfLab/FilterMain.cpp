@@ -178,69 +178,182 @@ applyFilter(struct Filter *filter, cs1300bmp *input, cs1300bmp *output)
       value51 = 0; 
       value52 = 0;
       value53 = 0;
-      for (i = 0; i < dim; i += 3) {
-	r = row + i - 1;
-	for (j = 0; j < dim; j++) {
-	  c = col + j - 1;
-	  value0 += input -> color[0][r][c] * filter_get[i][j];
-	  value1 += input -> color[0][r+1][c] * filter_get[i][j];
-	  value2 += input -> color[0][r+2][c] * filter_get[i][j];
-	  value3 += input -> color[1][r][c] * filter_get[i][j];
-	  value4 += input -> color[1][r+1][c] * filter_get[i][j];
-	  value5 += input -> color[1][r+2][c] * filter_get[i][j];
-	  value6 += input -> color[2][r][c] * filter_get[i][j];
-	  value7 += input -> color[2][r+1][c] * filter_get[i][j];
-	  value8 += input -> color[2][r+2][c] * filter_get[i][j];
 
-	  value9 += input -> color[0][r][c+1] * filter_get[i][j];
-	  value10 += input -> color[0][r+1][c+1] * filter_get[i][j];
-	  value11 += input -> color[0][r+2][c+1] * filter_get[i][j];
-	  value12 += input -> color[1][r][c+1] * filter_get[i][j];
-	  value13 += input -> color[1][r+1][c+1] * filter_get[i][j];
-	  value14 += input -> color[1][r+2][c+1] * filter_get[i][j];
-	  value15 += input -> color[2][r][c+1] * filter_get[i][j];
-	  value16 += input -> color[2][r+1][c+1] * filter_get[i][j];
-	  value17 += input -> color[2][r+2][c+1] * filter_get[i][j];
-
-	  value18 += input -> color[0][r][c+2] * filter_get[i][j];
-	  value19 += input -> color[0][r+1][c+2] * filter_get[i][j];
-	  value20 += input -> color[0][r+2][c+2] * filter_get[i][j];
-	  value21 += input -> color[1][r][c+2] * filter_get[i][j];
-	  value22 += input -> color[1][r+1][c+2] * filter_get[i][j];
-	  value23 += input -> color[1][r+2][c+2] * filter_get[i][j];
-	  value24 += input -> color[2][r][c+2] * filter_get[i][j];
-	  value25 += input -> color[2][r+1][c+2] * filter_get[i][j];
-	  value26 += input -> color[2][r+2][c+2] * filter_get[i][j];
-
-	  value27 += input -> color[0][r+3][c] * filter_get[i][j];
-	  value28 += input -> color[0][r+4][c] * filter_get[i][j];
-	  value29 += input -> color[0][r+5][c] * filter_get[i][j];
-	  value30 += input -> color[1][r+3][c] * filter_get[i][j];
-	  value31 += input -> color[1][r+4][c] * filter_get[i][j];
-	  value32 += input -> color[1][r+5][c] * filter_get[i][j];
-	  value33 += input -> color[2][r+3][c] * filter_get[i][j];
-	  value34 += input -> color[2][r+4][c] * filter_get[i][j];
-	  value35 += input -> color[2][r+5][c] * filter_get[i][j];
-
-	  value36 += input -> color[0][r+3][c+1] * filter_get[i][j];
-	  value37 += input -> color[0][r+4][c+1] * filter_get[i][j];
-	  value38 += input -> color[0][r+5][c+1] * filter_get[i][j];
-	  value39 += input -> color[1][r+3][c+1] * filter_get[i][j];
-	  value40 += input -> color[1][r+4][c+1] * filter_get[i][j];
-	  value41 += input -> color[1][r+5][c+1] * filter_get[i][j];
-	  value42 += input -> color[2][r+3][c+1] * filter_get[i][j];
-	  value43 += input -> color[2][r+4][c+1] * filter_get[i][j];
-	  value44 += input -> color[2][r+5][c+1] * filter_get[i][j];
-
-	  value45 += input -> color[0][r+3][c+2] * filter_get[i][j];
-	  value46 += input -> color[0][r+4][c+2] * filter_get[i][j];
-	  value47 += input -> color[0][r+5][c+2] * filter_get[i][j];
-	  value48 += input -> color[1][r+3][c+2] * filter_get[i][j];
-	  value49 += input -> color[1][r+4][c+2] * filter_get[i][j];
-	  value50 += input -> color[1][r+5][c+2] * filter_get[i][j];
-	  value51 += input -> color[2][r+3][c+2] * filter_get[i][j];
-	  value52 += input -> color[2][r+4][c+2] * filter_get[i][j];
-	  value53 += input -> color[2][r+5][c+2] * filter_get[i][j];
+	  value0 += input -> color[0][row - 1][col - 1] * filter_get[0][0]
+		    + input -> color[0][row][col - 1] * filter_get[1][0]
+		    + input -> color[0][row + 1][col -1] * filter_get[2][0]
+		    + input -> color[0][row - 1][col] * filter_get[0][1]
+		    + input -> color[0][row][col] * filter_get[1][1]
+		    + input -> color[0][row + 1][col] * filter_get[2][1]
+		    + input -> color[0][row - 1][col + 1] * filter_get[0][2]
+		    + input -> color[0][row][col + 1] * filter_get[1][2]
+		    + input -> color[0][row + 1][col + 1] * filter_get[2][2];
+	  value1 += input -> color[0][row][col - 1] * filter_get[0][0]
+		    + input -> color[0][row + 1][col - 1] * filter_get[1][0]
+		    + input -> color[0][row + 2][col -1] * filter_get[2][0]
+		    + input -> color[0][row][col] * filter_get[0][1]
+		    + input -> color[0][row + 1][col] * filter_get[1][1]
+		    + input -> color[0][row + 2][col] * filter_get[2][1]
+		    + input -> color[0][row][col + 1] * filter_get[0][2]
+		    + input -> color[0][row + 1][col + 1] * filter_get[1][2]
+		    + input -> color[0][row + 2][col + 1] * filter_get[2][2];
+	  value2 += input -> color[0][row + 1][col - 1] * filter_get[0][0]
+		    + input -> color[0][row + 2][col - 1] * filter_get[1][0]
+		    + input -> color[0][row + 3][col -1] * filter_get[2][0]
+		    + input -> color[0][row + 1][col] * filter_get[0][1]
+		    + input -> color[0][row + 2][col] * filter_get[1][1]
+		    + input -> color[0][row + 3][col] * filter_get[2][1]
+		    + input -> color[0][row + 1][col + 1] * filter_get[0][2]
+		    + input -> color[0][row + 2][col + 1] * filter_get[1][2]
+		    + input -> color[0][row + 3][col + 1] * filter_get[2][2];
+	  value3 += input -> color[1][row - 1][col - 1] * filter_get[0][0]
+		    + input -> color[1][row][col - 1] * filter_get[1][0]
+		    + input -> color[1][row + 1][col -1] * filter_get[2][0]
+		    + input -> color[1][row - 1][col] * filter_get[0][1]
+		    + input -> color[1][row][col] * filter_get[1][1]
+		    + input -> color[1][row + 1][col] * filter_get[2][1]
+		    + input -> color[1][row - 1][col + 1] * filter_get[0][2]
+		    + input -> color[1][row][col + 1] * filter_get[1][2]
+		    + input -> color[1][row + 1][col + 1] * filter_get[2][2];
+	  value4 += input -> color[1][row][col - 1] * filter_get[0][0]
+		    + input -> color[1][row + 1][col - 1] * filter_get[1][0]
+		    + input -> color[1][row + 2][col -1] * filter_get[2][0]
+		    + input -> color[1][row][col] * filter_get[0][1]
+		    + input -> color[1][row + 1][col] * filter_get[1][1]
+		    + input -> color[1][row + 2][col] * filter_get[2][1]
+		    + input -> color[1][row][col + 1] * filter_get[0][2]
+		    + input -> color[1][row + 1][col + 1] * filter_get[1][2]
+		    + input -> color[1][row + 2][col + 1] * filter_get[2][2];
+	  value5 += input -> color[1][row + 1][col - 1] * filter_get[0][0]
+		    + input -> color[1][row + 2][col - 1] * filter_get[1][0]
+		    + input -> color[1][row + 3][col -1] * filter_get[2][0]
+		    + input -> color[1][row + 1][col] * filter_get[0][1]
+		    + input -> color[1][row + 2][col] * filter_get[1][1]
+		    + input -> color[1][row + 3][col] * filter_get[2][1]
+		    + input -> color[1][row + 1][col + 1] * filter_get[0][2]
+		    + input -> color[1][row + 2][col + 1] * filter_get[1][2]
+		    + input -> color[1][row + 3][col + 1] * filter_get[2][2];
+	  value6 += input -> color[2][row - 1][col - 1] * filter_get[0][0]
+		    + input -> color[2][row][col - 1] * filter_get[1][0]
+		    + input -> color[2][row + 1][col -1] * filter_get[2][0]
+		    + input -> color[2][row - 1][col] * filter_get[0][1]
+		    + input -> color[2][row][col] * filter_get[1][1]
+		    + input -> color[2][row + 1][col] * filter_get[2][1]
+		    + input -> color[2][row - 1][col + 1] * filter_get[0][2]
+		    + input -> color[2][row][col + 1] * filter_get[1][2]
+		    + input -> color[2][row + 1][col + 1] * filter_get[2][2];
+	  value7 += input -> color[2][row][col - 1] * filter_get[0][0]
+		    + input -> color[2][row + 1][col - 1] * filter_get[1][0]
+		    + input -> color[2][row + 2][col -1] * filter_get[2][0]
+		    + input -> color[2][row][col] * filter_get[0][1]
+		    + input -> color[2][row + 1][col] * filter_get[1][1]
+		    + input -> color[2][row + 2][col] * filter_get[2][1]
+		    + input -> color[2][row][col + 1] * filter_get[0][2]
+		    + input -> color[2][row + 1][col + 1] * filter_get[1][2]
+		    + input -> color[2][row + 2][col + 1] * filter_get[2][2];
+	  value8 += input -> color[2][row + 1][col - 1] * filter_get[0][0]
+		    + input -> color[2][row + 2][col - 1] * filter_get[1][0]
+		    + input -> color[2][row + 3][col -1] * filter_get[2][0]
+		    + input -> color[2][row + 1][col] * filter_get[0][1]
+		    + input -> color[2][row + 2][col] * filter_get[1][1]
+		    + input -> color[2][row + 3][col] * filter_get[2][1]
+		    + input -> color[2][row + 1][col + 1] * filter_get[0][2]
+		    + input -> color[2][row + 2][col + 1] * filter_get[1][2]
+		    + input -> color[2][row + 3][col + 1] * filter_get[2][2];
+	  value9 += input -> color[0][row - 1][col] * filter_get[0][0]
+		    + input -> color[0][row][col] * filter_get[1][0]
+		    + input -> color[0][row + 1][col] * filter_get[2][0]
+		    + input -> color[0][row - 1][col + 1] * filter_get[0][1]
+		    + input -> color[0][row][col + 1] * filter_get[1][1]
+		    + input -> color[0][row + 1][col + 1] * filter_get[2][1]
+		    + input -> color[0][row - 1][col + 2] * filter_get[0][2]
+		    + input -> color[0][row][col + 2] * filter_get[1][2]
+		    + input -> color[0][row + 1][col + 2] * filter_get[2][2];
+	  value10 += input -> color[0][row][col] * filter_get[0][0]
+		    + input -> color[0][row + 1][col] * filter_get[1][0]
+		    + input -> color[0][row + 2][col] * filter_get[2][0]
+		    + input -> color[0][row][col + 1] * filter_get[0][1]
+		    + input -> color[0][row + 1][col + 1] * filter_get[1][1]
+		    + input -> color[0][row + 2][col + 1] * filter_get[2][1]
+		    + input -> color[0][row][col + 2] * filter_get[0][2]
+		    + input -> color[0][row + 1][col + 2] * filter_get[1][2]
+		    + input -> color[0][row + 2][col + 2] * filter_get[2][2];
+	  value11 += input -> color[0][row + 1][col] * filter_get[0][0]
+		    + input -> color[0][row + 2][col] * filter_get[1][0]
+		    + input -> color[0][row + 3][col] * filter_get[2][0]
+		    + input -> color[0][row + 1][col + 1] * filter_get[0][1]
+		    + input -> color[0][row + 2][col + 1] * filter_get[1][1]
+		    + input -> color[0][row + 3][col + 1] * filter_get[2][1]
+		    + input -> color[0][row + 1][col + 2] * filter_get[0][2]
+		    + input -> color[0][row + 2][col + 2] * filter_get[1][2]
+		    + input -> color[0][row + 3][col + 2] * filter_get[2][2];
+	  value12 += input -> color[1][row - 1][col] * filter_get[0][0]
+		    + input -> color[1][row][col] * filter_get[1][0]
+		    + input -> color[1][row + 1][col] * filter_get[2][0]
+		    + input -> color[1][row -1 ][col + 1] * filter_get[0][1]
+		    + input -> color[1][row][col + 1] * filter_get[1][1]
+		    + input -> color[1][row + 1][col + 1] * filter_get[2][1]
+		    + input -> color[1][row -1 ][col + 2] * filter_get[0][2]
+		    + input -> color[1][row][col + 2] * filter_get[1][2]
+		    + input -> color[1][row + 1][col + 2] * filter_get[2][2];
+	  value13 += value12 += input -> color[1][row][col] * filter_get[0][0]
+		    + input -> color[1][row + 1][col] * filter_get[1][0]
+		    + input -> color[1][row + 2][col] * filter_get[2][0]
+		    + input -> color[1][row][col + 1] * filter_get[0][1]
+		    + input -> color[1][row + 1][col + 1] * filter_get[1][1]
+		    + input -> color[1][row + 2][col + 1] * filter_get[2][1]
+		    + input -> color[1][row][col + 2] * filter_get[0][2]
+		    + input -> color[1][row + 1][col + 2] * filter_get[1][2]
+		    + input -> color[1][row + 2][col + 2] * filter_get[2][2];
+	  //value14 += input -> color[1][r+2][c+1]
+	  value14 += input -> color[1][row + 1][col] * filter_get[0][0]
+		    + input -> color[1][row + 2][col] * filter_get[1][0]
+		    + input -> color[1][row + 3][col] * filter_get[2][0]
+		    + input -> color[1][row + 1][col + 1] * filter_get[0][1]
+		    + input -> color[1][row + 2][col + 1] * filter_get[1][1]
+		    + input -> color[1][row + 3][col + 1] * filter_get[2][1]
+		    + input -> color[1][row + 1][col + 2] * filter_get[0][2]
+		    + input -> color[1][row + 2][col + 2] * filter_get[1][2]
+		    + input -> color[1][row + 3][col + 2] * filter_get[2][2];
+	  value15 += input -> color[0][r][c] * filter_get[0][0]
+	  value16 += input -> color[0][r][c] * filter_get[0][0]
+	  value17 += input -> color[0][r][c] * filter_get[0][0]
+	  value18 += input -> color[0][r][c] * filter_get[0][0]
+	  value19 += input -> color[0][r][c] * filter_get[0][0]
+	  value20 += input -> color[0][r][c] * filter_get[0][0]
+	  value21 += input -> color[0][r][c] * filter_get[0][0]
+	  value22 += input -> color[0][r][c] * filter_get[0][0]
+	  value23 += input -> color[0][r][c] * filter_get[0][0]
+	  value24 += input -> color[0][r][c] * filter_get[0][0]
+	  value25 += input -> color[0][r][c] * filter_get[0][0]
+	  value26 += input -> color[0][r][c] * filter_get[0][0]
+	  value27 += input -> color[0][r][c] * filter_get[0][0]
+	  value28 += input -> color[0][r][c] * filter_get[0][0]
+	  value29 += input -> color[0][r][c] * filter_get[0][0]
+	  value30 += input -> color[0][r][c] * filter_get[0][0]
+	  value31 += input -> color[0][r][c] * filter_get[0][0]
+	  value32 += input -> color[0][r][c] * filter_get[0][0]
+	  value33 += input -> color[0][r][c] * filter_get[0][0]
+	  value34 += input -> color[0][r][c] * filter_get[0][0]
+	  value35 += input -> color[0][r][c] * filter_get[0][0]
+	  value36 += input -> color[0][r][c] * filter_get[0][0]
+	  value37 += input -> color[0][r][c] * filter_get[0][0]
+	  value38 += input -> color[0][r][c] * filter_get[0][0]
+	  value39 += input -> color[0][r][c] * filter_get[0][0]
+	  value40 += input -> color[0][r][c] * filter_get[0][0]
+	  value41 += input -> color[0][r][c] * filter_get[0][0]
+	  value42 += input -> color[0][r][c] * filter_get[0][0]
+	  value43 += input -> color[0][r][c] * filter_get[0][0]
+	  value44 += input -> color[0][r][c] * filter_get[0][0]
+	  value45 += input -> color[0][r][c] * filter_get[0][0]
+	  value46 += input -> color[0][r][c] * filter_get[0][0]
+	  value47 += input -> color[0][r][c] * filter_get[0][0]
+	  value48 += input -> color[0][r][c] * filter_get[0][0]
+	  value49 += input -> color[0][r][c] * filter_get[0][0]
+	  value50 += input -> color[0][r][c] * filter_get[0][0]
+	  value51 += input -> color[0][r][c] * filter_get[0][0]
+	  value52 += input -> color[0][r][c] * filter_get[0][0]
+	  value53 += input -> color[0][r][c] * filter_get[0][0]
 	}
       }
 
