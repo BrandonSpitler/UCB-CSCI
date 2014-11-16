@@ -2,7 +2,7 @@
 ##
 
 CXX	=g++
-CXXFLAGS= -O3
+CXXFLAGS= -O2 -m64
 
 goals: judge
 	echo "Done"
