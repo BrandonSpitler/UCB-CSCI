@@ -1,0 +1,25 @@
+CSCI 3753 Operating Systems - Spring 2015
+Programming Assignment 1
+
+Taylor Andrews
+taylor.andrews-1@colorado.edu
+
+**Dependencies**
+cu-cs-csci-3753
+
+**Files**
+Makefile		-	Makefile to change kernel config.
+  build location		  arch/x86/kernel/Makefile
+simple_add.c		-	Code for system call to add two integers together.
+  build location		  arch/x86/kernel/simple_add.c
+syscall_64.tbl		-	System call entries for the current linux kernel.
+  build location		  arch/x86/syscalls
+syscalls.h		-	Contains prototypes for all system calls.
+  build location		  include/linux
+syslog			-	Contains the output from simple_add.
+test_simple_add.c	-	Test file to check simple_add system call.
+
+**Usage**
+Build and Run Test Program
+  gcc -o test test_simple_add.c
+  ./test
