@@ -1,0 +1,13 @@
+Jan 25 16:02:29 cu-cs-vm rsyslogd: [origin software="rsyslogd" swVersion="7.4.4" x-pid="451" x-info="http://www.rsyslog.com"] rsyslogd was HUPed
+Jan 25 16:03:00 cu-cs-vm anacron[2270]: Job `cron.daily' terminated
+Jan 25 16:03:00 cu-cs-vm anacron[2270]: Normal exit (1 job run)
+Jan 25 16:04:33 cu-cs-vm uptimed: moving up to position 5: 0 days, 00:20:07
+Jan 25 16:14:34 cu-cs-vm uptimed: moving up to position 3: 0 days, 00:30:07
+Jan 25 16:17:01 cu-cs-vm CRON[3267]: (root) CMD (   cd / && run-parts --report /etc/cron.hourly)
+Jan 25 16:24:34 cu-cs-vm uptimed: moving up to position 2: 0 days, 00:40:07
+Jan 25 16:53:40 cu-cs-vm kernel: [ 4153.421970] Number 1: 214 
+Jan 25 16:53:40 cu-cs-vm kernel: [ 4153.421974] Number 2: 19 
+Jan 25 16:53:40 cu-cs-vm kernel: [ 4153.421977] Result: 233 
+Jan 25 16:59:06 cu-cs-vm kernel: [ 4478.584223] Number 1: 214 
+Jan 25 16:59:06 cu-cs-vm kernel: [ 4478.584227] Number 2: 19 
+Jan 25 16:59:06 cu-cs-vm kernel: [ 4478.584230] Result: 233 
