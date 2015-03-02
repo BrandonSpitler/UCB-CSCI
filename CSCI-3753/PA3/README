@@ -1,7 +1,7 @@
 CS3753 (Operating Systems)
-Spring 2012
+Spring 2015
 University of Colorado Boulder
-Programming Assignment 2
+Programming Assignment 3
 Public Code
 
 By Andy Sayler - 2012
@@ -14,6 +14,9 @@ Adopted from previous code by
  Chris Wailes <chris.wailes@gmail.com> - 2010
  Wei-Te Chen <weite.chen@colorado.edu> - 2011
  Blaise Barney - pthread-hello.c
+
+Modified by:
+Taylor Andrews
 
 ---Folders---
 input - names*.txt input files
