@@ -1,0 +1,24 @@
+CSCI 3104
+Spring 2015
+
+Dictionary Lookup and Autocomplete Using a Trie
+
+**Files**
+trieClass.py		-		Contains the class to create the Trie.
+trieTester.py		-		File to run the test cases. 
+test1.spec		-		Tests the Trie insert, lookup, and autocomplete.
+test2.spec		-		Tests the Trie insert, lookup, and autocomplete.
+test3.spec		-		Tests the Trie insert, lookup, and autocomplete.
+test4.spec		-		Tests the Trie insert, lookup, and autocomplete.
+test5.spec		-		Tests the Trie insert, lookup, and autocomplete.
+test6.spec		-		Tests the Trie insert, lookup, and autocomplete.
+test7.spec		-		Tests the Trie insert, lookup, and autocomplete.
+test8.spec		-		Tests the Trie insert, lookup, and autocomplete.
+test9.spec		-		Tests the Trie insert, lookup, and autocomplete.
+
+**Usage**
+To run a test using the test.spec files
+  python trieTester.py test1
+
+To run the tests in the class itself
+  python trieClass.py
