@@ -1,6 +1,6 @@
-#LastName:
-#FirstName:
-#Email:
+#LastName: Andrews
+#FirstName: Taylor
+#Email: taylor.andrews-1@colorado.edu
 #Comments:
 
 from __future__ import print_function
@@ -16,16 +16,37 @@ class MyTrieNode:
         # But do not change the signature of the constructor.
         self.isRoot = isRootNode
         self.isWordEnd = False # is this node a word ending node
-        self.isRoot = False # is this a root node
         self.count = 0 # frequency count
         self.next = {} # Dictionary mappng each character from a-z to the child node
 
 
     def addWord(self,w):
         assert(len(w) > 0)
+        
+        self.add(w, self)
+        
+    #Helper function to recursively add to the trie
+    def add(self, word, node):
+        if not word:
+                return
+            
+        char = word[:1]
+        
+        if char not in node.next:
+            child = MyTrieNode(False) #create the next node in the trie
+            node.next[char] = child #link the nodes using the dict
 
-        # YOUR CODE HERE
-        # If you want to create helper/auxiliary functions, please do so.
+            if len(word) == 1:
+                child.isWordEnd = True
+                child.count += 1 #increment the count of child
+
+            self.add(word[1:], child) #possibly needs to be node.next[char]
+        else:
+            if len(word) == 1:
+                node.next[char].isWordEnd = True
+                node.next[char].count += 1 #increment the count of the existant child
+
+            self.add(word[1:], node.next[char]) #recursively add
         
         return
 
