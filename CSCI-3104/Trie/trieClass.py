@@ -33,43 +33,52 @@ class MyTrieNode:
         char = word[:1]
         
         if char not in node.next:
-            child = MyTrieNode(False) #create the next node in the trie
-            node.next[char] = child #link the nodes using the dict
+            child = MyTrieNode(False) #Create the next node in the trie
+            node.next[char] = child #Link the nodes using the dict
 
             if len(word) == 1:
-                child.isWordEnd = True
-                child.count += 1 #increment the count of child
+                child.isWordEnd = True #Since there is only one letter left this must be the end of a word
+                child.count += 1 #Increment the count of child
 
-            self.add(word[1:], child) #possibly needs to be node.next[char]
+            self.add(word[1:], child)
         else:
             if len(word) == 1:
-                node.next[char].isWordEnd = True
-                node.next[char].count += 1 #increment the count of the existant child
+                node.next[char].isWordEnd = True #Since there is only one letter left this must be the end of a word
+                node.next[char].count += 1 #Increment the count of the existant child
 
-            self.add(word[1:], node.next[char]) #recursively add
+            self.add(word[1:], node.next[char]) #Recursively add
         
         return
 
-    def lookupWord(self,w):
+    def lookupWord(self, w):
         # Return frequency of occurrence of the word w in the trie
         # returns a number for the frequency and 0 if the word w does not occur.
 
         # YOUR CODE HERE
-        
-        return 0 # TODO: change this line, please
-    
+        if not w:
+            return 0
 
-    def autoComplete(self,w):
-        #Returns possible list of autocompletions of the word w
-        #Returns a list of pairs (s,j) denoting that
-        #         word s occurs with frequency j
+        node = self.findNode(w, self) #Search for the node in the trie using findNode
+		
+        try:
+            if node.isWordEnd: #If the value returned by findNode is -1, this will pass control to the except
+                return node.count
+            else:
+                return 0 #If the node is not the end of the word, return 0 for count
+        except:
+            return 0 #Return 0 for count if the word is not in the trie
 
-        #YOUR CODE HERE
+	#findNode will find the last node associated with any word in the Trie
+	#  If the word does not exist in the Trie, findNode returns -1
+    def findNode(self, word, node):
+        char = word[:1]
         
-        return [('Walter',1),('Mitty',2),('Went',3),('To',4),('Greenland',2)] #TODO: change this line, please
-    
-    
-            
+        if char not in node.next:
+            return -1 #The word doesn't exist in the trie
+        elif len(word) == 1:
+            return node.next[char] #Return the last node in the word
+        else:
+            return self.findNode(word[1:], node.next[char]) #Recursively search
 
 if (__name__ == '__main__'):
     t= MyTrieNode(True)
@@ -81,6 +90,9 @@ if (__name__ == '__main__'):
     j = t.lookupWord('testy') # should return 0
     j2 = t.lookupWord('telltale') # should return 0
     j3 = t.lookupWord ('testing') # should return 2
+
+    print(j, j2, j3)
+
     lst3 = t.autoComplete('pi')
     print('Completions for \"pi\" are : ')
     print(lst3)
