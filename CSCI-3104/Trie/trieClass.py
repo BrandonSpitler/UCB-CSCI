@@ -53,23 +53,18 @@ class MyTrieNode:
     def lookupWord(self, w):
         # Return frequency of occurrence of the word w in the trie
         # returns a number for the frequency and 0 if the word w does not occur.
-
-        # YOUR CODE HERE
         if not w:
             return 0
 
         node = self.findNode(w, self) #Search for the node in the trie using findNode
 		
         try:
-            if node.isWordEnd: #If the value returned by findNode is -1, this will pass control to the except
-                return node.count
-            else:
-                return 0 #If the node is not the end of the word, return 0 for count
+            return node.count #If the value returned by findNode is -1, this will pass control to the except
         except:
             return 0 #Return 0 for count if the word is not in the trie
 
-	#findNode will find the last node associated with any word in the Trie
-	#  If the word does not exist in the Trie, findNode returns -1
+    #findNode will find the last node associated with any word in the Trie
+    #  If the word does not exist in the Trie, findNode returns -1
     def findNode(self, word, node):
         char = word[:1]
         
@@ -79,6 +74,33 @@ class MyTrieNode:
             return node.next[char] #Return the last node in the word
         else:
             return self.findNode(word[1:], node.next[char]) #Recursively search
+
+    def autoComplete(self,w):
+        #Returns possible list of autocompletions of the word w
+        #Returns a list of pairs (s,j) denoting that
+        #         word s occurs with frequency j
+        if not w:
+            return [] #Return the empty set in the case of a blank word
+            
+        node = self.findNode(w, self)    
+        lst = []
+
+        try:
+            if node.isWordEnd: #If the value returned by findNode is -1, this will pass control to the except
+                lst.append( (w, node.count) ) #If the word is already in the trie, add it as a suggestion
+        except:
+            return lst #Return an empty list if the word is not in the trie
+            
+        return self.auto(w, node, lst) 
+
+    #Recursive helper function for autocomplete
+    def auto(self, suggestion, node, lst):
+        for key, value in node.next.items(): 
+            if node.next[key].isWordEnd: 
+                lst.append( (suggestion+key,node.next[key].count) ) #Append to the list of word suggestions
+            self.auto(suggestion+key, node.next[key], lst) #Recursively autocomplete
+            
+        return lst
 
 if (__name__ == '__main__'):
     t= MyTrieNode(True)
@@ -91,8 +113,6 @@ if (__name__ == '__main__'):
     j2 = t.lookupWord('telltale') # should return 0
     j3 = t.lookupWord ('testing') # should return 2
 
-    print(j, j2, j3)
-
     lst3 = t.autoComplete('pi')
     print('Completions for \"pi\" are : ')
     print(lst3)
@@ -100,7 +120,3 @@ if (__name__ == '__main__'):
     lst4 = t.autoComplete('tes')
     print('Completions for \"tes\" are : ')
     print(lst4)
- 
-    
-    
-     
