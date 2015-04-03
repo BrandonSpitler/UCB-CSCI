@@ -1,9 +1,10 @@
 /*
  * File: util.h
  * Author: Andy Sayler
- * Project: CSCI 3753 Programming Assignment 2
+ * Modified by: Taylor Andrews
+ * Project: CSCI 3753 Programming Assignment 3
  * Create Date: 2012/02/01
- * Modify Date: 2012/02/01
+ * Modify Date: 2015/03/10
  * Description:
  * 	This file contains declarations of utility functions for
  *      Programming Assignment 2.
@@ -29,6 +30,12 @@
 #define UTIL_FAILURE -1
 #define UTIL_SUCCESS 0
 
+/* Define a node type for implementing a linked list */
+typedef struct node {
+    char data[INET6_ADDRSTRLEN];
+    struct node* next;
+} node_t;
+
 /* Fuction to return the first IP address found
  * for hostname. IP address returned as string
  * firstIPstr of size maxsize
@@ -36,5 +43,10 @@
 int dnslookup(const char* hostname,
 	      char* firstIPstr,
 	      int maxSize);
+
+/* Extended dnslookup to use ipv6 */
+int extended_dnslookup(const char* hostname, 
+		       node_t* headptr,
+		       int maxSize);
 
 #endif
