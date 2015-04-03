@@ -1,0 +1,20 @@
+CSCI 3155 Principles of Programming Languages - Spring 2015
+Postfix Calculator
+
+Taylor Andrews
+taylor.andrews-1@colorado.edu
+
+**Build**
+bison -d andrews_taylor_postfix.ypp
+flex andrews_taylor_postfix.l
+g++ -o mycalc andrews_taylor_postfix.tab.cpp lex.yy.c
+
+**Usage**
+Run the calculator:
+  ./mycalc
+
+Use the calculator:
+  <mathematical expression> <mathematical expression> <mathematical operator>;
+
+Quit:
+  ctrl-c
