@@ -18,14 +18,8 @@ Adopted from previous code by
 Modified by:
 Taylor Andrews
 
----Folders---
-input - names*.txt input files
-handout - Assignment description and documentation
-
 ---Executables---
-lookup - A basic non-threaded DNS query-er
-queueTest - Unit test program for queue
-pthread-hello ; A simple threaded "Hello World" program
+multi-lookup - A thread-safe dns query program
 
 ---Examples---
 Build:
@@ -35,10 +29,7 @@ Clean:
  make clean
 
 Lookup DNS info for all names files in input folder:
- ./lookup input/names*.txt results.txt
+ ./multi-lookup input/names*.txt results.txt
 
-Check queue for memory leaks:
- valgrind ./queueTest
-
-Run pthread-hello
- ./pthread-hello
+Check for memory leaks:
+ valgrind ./multi-lookup input/names*.txt results.txt
